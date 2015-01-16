@@ -10,6 +10,8 @@
 var ATEditor = {
 	id: null,
 	textarea: null,
+	$wysiwyg: null,
+	$source: null,
 	plugins: {},
 	activeplugins: 'source bold italic underline',
 	mode: 'wysiwyg',
@@ -21,12 +23,13 @@ var ATEditor = {
 		if(ATEditor.textarea)
 		{
 			ATEditor.textarea.after('<div id="ATEditor"><div class="ate_head"></div><div class="ate_body" contenteditable></div><div class="ate_foot"></div>');
+			ATEditor.$wysiwyg = $('#ATEditor').find('.ate_body');
 			ATEditor.textarea.addClass('ate_hidden_important');
 
 			ATEditor.runplugins();
 			
-			$('.ate_body').bind('keydown keypress keyup mousedown mouseup focus', ATEditor.check_btns);
-			$('.ate_body').bind('keydown keyup', ATEditor.keymapcheck);
+			ATEditor.$wysiwyg.bind('keydown keypress keyup mousedown mouseup focus', ATEditor.check_btns);
+			ATEditor.$wysiwyg.bind('keydown keyup', ATEditor.keymapcheck);
 		}
 		else
 		{
@@ -42,21 +45,21 @@ var ATEditor = {
 	getSelection: function()
 	{
 		// It should edit for Soruce mode
-		if(!$('.ate_body').selection())
+		if(!ATEditor.$wysiwyg.selection())
 		{
-			l = $('.ate_body').text().length;
+			l = ATEditor.$wysiwyg.text().length;
 			if(l == 0)
 			{
-				$('.ate_body').focus();
+				ATEditor.$wysiwyg.focus();
 			}
 			else
 			{
-				$('.ate_body').append('&#8203;');
-				$('.ate_body').selection(l, l+1);
+				ATEditor.$wysiwyg.append('&#8203;');
+				ATEditor.$wysiwyg.selection(l, l+1);
 			}
 			
 		}
-		return $('.ate_body').selection();
+		return ATEditor.$wysiwyg.selection();
 	},
 
 	getSelectionHtml: function(dontempty) {
@@ -85,7 +88,7 @@ var ATEditor = {
 	{
 		// http://jsfiddle.net/WeWy7/3/
 		
-		containerEl = $('.ate_body')[0];
+		containerEl = ATEditor.$wysiwyg[0];
 		savedSel = {
 			start: start,
 			end: start+length
@@ -261,7 +264,7 @@ var ATEditor = {
 	cleanup: function($elm)
 	{
 		if(!$elm)
-			$elm = $('.ate_body');
+			$elm = ATEditor.$wysiwyg;
 		ATEditor.runHook('cleanup.start', {'elm': $elm});
 		$elm.find('*').each(function(){
 			ATEditor.runHook('cleanup.do', {'elm': this});

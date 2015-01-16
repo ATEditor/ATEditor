@@ -10,7 +10,7 @@ ATEditor.plugins['bold'] = function()
 		return false;
 	}, function() {
 		r = false;
-		$('.ate_body').find('b, strong').each(function(){
+		ATEditor.$wysiwyg.find('b, strong').each(function(){
 			r = r || (true && $(this).selection());
 			if(r == true)
 				return false;

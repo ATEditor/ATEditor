@@ -4,9 +4,9 @@ ATEditor.plugins['source'] = function()
 	{
 		ATEditor.cleanup();
 		ATEditor.$source = $('<textarea />');
-		ATEditor.$source.val($('.ate_body').hide().html());
+		ATEditor.$source.val(ATEditor.$wysiwyg.hide().html());
 		ATEditor.$source.addClass('ate_source');
-		$('.ate_body').after(ATEditor.$source);
+		ATEditor.$wysiwyg.after(ATEditor.$source);
 		ATEditor.$source.focus();
 		ATEditor.mode = 'source';
 		return false;
@@ -15,7 +15,7 @@ ATEditor.plugins['source'] = function()
 		$div = $('<div />');
 		$div.html(ATEditor.$source.val());
 		ATEditor.cleanup($div);
-		$('.ate_body').html($div.html()).show();
+		ATEditor.$wysiwyg.html($div.html()).show();
 		ATEditor.$source.remove();
 		ATEditor.mode = 'wysiwyg';
 		return false;

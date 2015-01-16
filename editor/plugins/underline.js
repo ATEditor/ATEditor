@@ -10,7 +10,7 @@ ATEditor.plugins['underline'] = function()
 		return false;
 	}, function() {
 		r = false;
-		$('.ate_body').find('u').each(function(){
+		ATEditor.$wysiwyg.find('u').each(function(){
 			r = r || (true && $(this).selection());
 			if(r == true)
 				return false;

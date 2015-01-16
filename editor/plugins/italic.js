@@ -10,7 +10,7 @@ ATEditor.plugins['italic'] = function()
 		return false;
 	}, function() {
 		r = false;
-		$('.ate_body').find('em, i').each(function(){
+		ATEditor.$wysiwyg.find('em, i').each(function(){
 			r = r || (true && $(this).selection());
 			if(r == true)
 				return false;
