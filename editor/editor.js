@@ -258,17 +258,19 @@ var ATEditor = {
 	
 	
 	
-	cleanup: function()
+	cleanup: function($elm)
 	{
-		ATEditor.runHook('cleanup.start');
-		$('.ate_body').find('*').each(function(){
+		if(!$elm)
+			$elm = $('.ate_body');
+		ATEditor.runHook('cleanup.start', {'elm': $elm});
+		$elm.find('*').each(function(){
 			ATEditor.runHook('cleanup.do', {'elm': this});
-			if($(this).html() == '')
+			if($(this)[0].tagName.toLowerCase() == 'script')
 			{
 				$(this).remove();
 			}
 		});
-		ATEditor.runHook('cleanup.end');
+		ATEditor.runHook('cleanup.end', {'elm': $elm});
 	},
 
 	keys: [],

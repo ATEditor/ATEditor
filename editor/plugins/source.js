@@ -12,7 +12,10 @@ ATEditor.plugins['source'] = function()
 		return false;
 	}, function()
 	{
-		$('.ate_body').html(ATEditor.$source.val()).show();
+		$div = $('<div />');
+		$div.html(ATEditor.$source.val());
+		ATEditor.cleanup($div);
+		$('.ate_body').html($div.html()).show();
 		ATEditor.$source.remove();
 		ATEditor.mode = 'wysiwyg';
 		return false;
