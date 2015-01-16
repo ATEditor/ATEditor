@@ -11,7 +11,9 @@ var ATEditor = {
 	id: null,
 	textarea: null,
 	plugins: {},
-	activeplugins: 'bold italic underline',
+	activeplugins: 'source bold italic underline',
+	mode: 'wysiwyg',
+
 	run: function(id)
 	{
 		ATEditor.id = id;

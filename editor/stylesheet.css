@@ -25,15 +25,21 @@
 	background: #f9f9f9;
 }
 
-.ate_body {
+.ate_body, .ate_source {
 	position: absolute;
 	top: 35px;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	outline: 0;
+	border: none;
 	overflow: auto;
 	padding: 10px;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	font-size: 13px;
+	font-family: Tahoma;
 }
 
 .ate_btn {
@@ -89,4 +95,13 @@
 
 #ate_btn_removeformat:before {
 	content: 'RemoveFormat';
+}
+
+
+#ate_btn_source {
+
+}
+
+#ate_btn_source:before {
+	content: '<>';
 }
