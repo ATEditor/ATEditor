@@ -1,0 +1,92 @@
+/*
+ * In the name of GOD
+ */
+
+.ate_hidden_important {
+	display: none!important;
+}
+
+#ATEditor {
+	position:relative;
+	width: 100%;
+	border: 1px solid #ccc;
+	height: 200px;
+	font-family: Tahoma, Arial;
+	text-rendering: geometricPrecision;
+}
+
+#ATEditor, #ATEditor div, #ATEditor span {
+	box-sizing: border-box;
+}
+
+.ate_head {
+	border-bottom: 1px solid #ccc;
+	height: 35px;
+	background: #f9f9f9;
+}
+
+.ate_body {
+	position: absolute;
+	top: 35px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	outline: 0;
+	overflow: auto;
+	padding: 10px;
+}
+
+.ate_btn {
+	display: block;
+	float: left;
+	padding: 8px;
+	height: 34px;
+	width: 34px;
+	text-align: center;
+}
+
+.ate_active {
+	background: #eee;
+}
+
+/* Content */
+
+
+/* Buttons */
+#ate_btn_bold {
+
+}
+
+#ate_btn_bold:before {
+	content: 'B';
+	font-weight: bold;
+}
+
+
+#ate_btn_italic {
+
+}
+
+#ate_btn_italic:before {
+	content: 'I';
+	font-style: italic;
+}
+
+
+#ate_btn_underline {
+
+}
+
+#ate_btn_underline:before {
+	content: 'U';
+	text-decoration: underline;
+}
+
+
+#ate_btn_removeformat {
+
+}
+
+#ate_btn_removeformat:before {
+	content: 'RemoveFormat';
+}

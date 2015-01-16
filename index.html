@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+	<title>ATEditor</title>
+	<meta charset="utf-8">
+	<link href="editor/stylesheet.css" type="text/css" rel="stylesheet"></link>
+	<style>
+		#container {
+			width: 95%;
+			margin: 0 auto;
+			padding: 20px;
+		}
+	</style>
+</head>
+<body>
+<div id="container">
+
+	<textarea id="msg"></textarea>
+	<textarea id="t" style="width:100%;height:50px;"></textarea>
+</div>
+
+<script src="jq/jquery-1.11.1.min.js"></script>
+<script src="jq/jquerypp.custom.js"></script>
+<script src="editor/editor.js"></script>
+<script src="editor/plugins/bold.js"></script>
+<script src="editor/plugins/italic.js"></script>
+<script>
+	ATEditor.run('msg');
+	setInterval(function(){$('#t').val($('.ate_body').html());}, 200);
+</script>
+</body>
+</html>
