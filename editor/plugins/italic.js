@@ -2,25 +2,11 @@ ATEditor.plugins['italic'] = function()
 {
 	ATEditor.addbutton('italic', 'Italic', true, function()
 	{
-		ATEditor.insertTag('<em>', '</em>', true, function(html) {
-			$html = $('<span />');
-			$html.append(html);
-			$html.find('em').each(function(){
-				$(this)[0].outerHTML = $(this).html();
-			});
-			return $html.html();
-		});
+		ATEditor.execCommand('italic');
 		return false;
 	}, function()
 	{
-		ATEditor.insertTag('</em>', '<em>', true, function(html) {
-			$html = $('<span />');
-			$html.append(html);
-			$html.find('em, i').each(function(){
-				$(this)[0].outerHTML = $(this).html();
-			});
-			return $html.html();
-		});
+		ATEditor.execCommand('italic');
 		return false;
 	}, function() {
 		r = false;

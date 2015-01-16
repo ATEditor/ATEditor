@@ -2,25 +2,11 @@ ATEditor.plugins['bold'] = function()
 {
 	ATEditor.addbutton('bold', 'Bold', true, function()
 	{
-		ATEditor.insertTag('<strong>', '</strong>', true, function(html) {
-			$html = $('<span />');
-			$html.append(html);
-			$html.find('strong').each(function(){
-				$(this)[0].outerHTML = $(this).html();
-			});
-			return $html.html();
-		});
+		ATEditor.execCommand('bold');
 		return false;
 	}, function()
 	{
-		ATEditor.insertTag('</strong>', '<strong>', true, function(html) {
-			$html = $('<span />');
-			$html.append(html);
-			$html.find('strong, b').each(function(){
-				$(this)[0].outerHTML = $(this).html();
-			});
-			return $html.html();
-		});
+		ATEditor.execCommand('bold');
 		return false;
 	}, function() {
 		r = false;

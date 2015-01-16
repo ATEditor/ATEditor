@@ -24,7 +24,7 @@ var ATEditor = {
 			ATEditor.runplugins();
 			
 			$('.ate_body').bind('keydown keypress keyup mousedown mouseup focus', ATEditor.check_btns);
-			$('.ate_body').bind('keyup', ATEditor.keymapcheck);
+			$('.ate_body').bind('keydown keyup', ATEditor.keymapcheck);
 		}
 		else
 		{
@@ -209,7 +209,7 @@ var ATEditor = {
 
 	insertTag: function(start, end, isempty, parser)
 	{
-		//slc = ATEditor.getSelection();
+		slc = ATEditor.getSelection();
 		html = ATEditor.getSelectionHtml(isempty);
 		if(typeof parser == 'function')
 		{
