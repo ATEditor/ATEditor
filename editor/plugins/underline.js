@@ -1,8 +1,18 @@
 ATEditor.plugins['underline'] = function()
 {
-	ATEditor.addbutton('underline', 'Underline', true, function()
+	ATEditor.addbutton('underline', 'Underline', function()
 	{
-		ATEditor.execCommand('underline');
+		return ATEditor.mode == 'wysiwyg';
+	}, function()
+	{
+		if(ATEditor.mode == 'source')
+		{
+			ATEditor.source.insertTag('<u>','</u>');
+		}
+		else
+		{
+			ATEditor.execCommand('underline');
+		}
 		return false;
 	}, function()
 	{

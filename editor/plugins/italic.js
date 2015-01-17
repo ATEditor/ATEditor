@@ -1,8 +1,18 @@
 ATEditor.plugins['italic'] = function()
 {
-	ATEditor.addbutton('italic', 'Italic', true, function()
+	ATEditor.addbutton('italic', 'Italic', function()
 	{
-		ATEditor.execCommand('italic');
+		return ATEditor.mode == 'wysiwyg';
+	}, function()
+	{
+		if(ATEditor.mode == 'source')
+		{
+			ATEditor.source.insertTag('<i>','</i>');
+		}
+		else
+		{
+			ATEditor.execCommand('italic');
+		}
 		return false;
 	}, function()
 	{

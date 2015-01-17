@@ -1,8 +1,18 @@
 ATEditor.plugins['bold'] = function()
 {
-	ATEditor.addbutton('bold', 'Bold', true, function()
+	ATEditor.addbutton('bold', 'Bold', function()
 	{
-		ATEditor.execCommand('bold');
+		return ATEditor.mode == 'wysiwyg';
+	}, function()
+	{
+		if(ATEditor.mode == 'source')
+		{
+			ATEditor.source.insertTag('<b>','</b>');
+		}
+		else
+		{
+			ATEditor.execCommand('bold');
+		}
 		return false;
 	}, function()
 	{

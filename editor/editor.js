@@ -44,26 +44,36 @@ var ATEditor = {
 
 	getSelection: function()
 	{
-		// It should edit for Soruce mode
-		if(!ATEditor.$wysiwyg.selection())
+		if(ATEditor.mode == 'wysiwyg')
 		{
-			l = ATEditor.$wysiwyg.text().length;
-			if(l == 0)
+			if(!ATEditor.$wysiwyg.selection())
 			{
-				ATEditor.$wysiwyg.focus();
+				l = ATEditor.$wysiwyg.text().length;
+				if(l == 0)
+				{
+					ATEditor.$wysiwyg.focus();
+				}
+				else
+				{
+					ATEditor.$wysiwyg.append('&#8203;');
+					ATEditor.$wysiwyg.selection(l, l+1);
+				}
+				
 			}
-			else
-			{
-				ATEditor.$wysiwyg.append('&#8203;');
-				ATEditor.$wysiwyg.selection(l, l+1);
-			}
-			
+			return ATEditor.$wysiwyg.selection();
 		}
-		return ATEditor.$wysiwyg.selection();
+		else
+		{
+			return ATEditor.$source.selection();
+		}
 	},
 
 	getSelectionHtml: function(dontempty) {
-		//ATEditor.getSelection();
+		var selection = ATEditor.getSelection();
+		if(ATEditor.mode == 'source')
+		{
+			return ATEditor.$source.val().substr(selection.start, selection.width);
+		}
 		var html = "";
 		if (typeof window.getSelection != "undefined") {
 			var sel = window.getSelection();
@@ -87,7 +97,10 @@ var ATEditor = {
 	setSelection: function(start, length)
 	{
 		// http://jsfiddle.net/WeWy7/3/
-		
+		if(ATEditor.mode == 'source')
+		{
+			return ATEditor.$source.selection(start, start+length);
+		}
 		containerEl = ATEditor.$wysiwyg[0];
 		savedSel = {
 			start: start,
@@ -149,24 +162,21 @@ var ATEditor = {
 		var click = function()
 		{
 			ATEditor.runHook('button.click');
-			if(trigger && isactive())
+			ccc = trigger;
+			if(typeof trigger == 'function')
+				ccc = trigger();
+			if(ccc && isactive())
 				deactive();
 			else
 				active();
+			if(ccc)
+				$(this).toggleClass('ate_active');
 			return false;
 		};
 
 		$btn.mousedown(click);
 		
 		ATEditor.addHook('events.run.'+name, function(){$btn.mousedown()});
-
-		if(trigger)
-		{
-			$btn.mousedown(function()
-			{
-				$(this).toggleClass('ate_active');
-			});
-		}
 
 		$('.ate_head').append($btn);
 		
