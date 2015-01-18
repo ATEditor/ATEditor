@@ -1,6 +1,7 @@
 ATEditor.plugins['underline'] = function()
 {
 	ATEditor.addbutton('underline', 'Underline', {
+		extraclass: 'fa fa-underline',
 		trigger: function()
 		{
 			return ATEditor.mode == 'wysiwyg';

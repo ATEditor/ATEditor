@@ -1,6 +1,7 @@
 ATEditor.plugins['italic'] = function()
 {
 	ATEditor.addbutton('italic', 'Italic', {
+		extraclass: 'fa fa-italic',
 		trigger: function()
 		{
 			return ATEditor.mode == 'wysiwyg';

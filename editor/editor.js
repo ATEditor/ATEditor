@@ -157,13 +157,27 @@ var ATEditor = {
 			trigger: false,
 			active: function(){},
 			deactive: function(){},
-			isactive: function(){ return false;}
+			isactive: function(){ return false;},
+			extraclass: '',
+			tooltip: true
 		}, opts);
 		ATEditor.runHook('addbutton.start', {name:name,title:title,opts:opts});
 		var $btn = $('<div />');
 		$btn.attr('id', 'ate_btn_'+name);
-		$btn.attr('title', title);
 		$btn.addClass('ate_btn');
+		$btn.addClass(opts.extraclass);
+
+		if(opts.tooltip)
+		{
+			var $tooltip = $('<div />');
+			$tooltip.addClass('ate_tooltip');
+			$tooltip.text(title);
+			$btn.append($tooltip);
+		}
+		else
+		{
+			$btn.attr('title', title);
+		}
 		
 		var click = function()
 		{
@@ -185,6 +199,19 @@ var ATEditor = {
 		ATEditor.addHook('events.run.'+name, function(){$btn.mousedown()});
 
 		$('.ate_head').append($btn);
+		if(opts.tooltip)
+		{
+			$tooltip.css('bottom', (-1*($tooltip.outerHeight()))+'px');
+			$tooltip.css('left', (($btn.outerWidth()-$tooltip.outerWidth())/2)+'px');
+			$tooltip.css('right', (($btn.outerWidth()-$tooltip.outerWidth())/2)+'px');
+			$tooltip.hide();
+			$btn.hover(function(){
+				$tooltip.show();
+			}, function() {
+				$tooltip.hide();
+			});
+			$tooltip.hover(function(){$(this).hide();});
+		}
 		
 		if(typeof ATEditor['btn_'+name] == 'function')
 		{

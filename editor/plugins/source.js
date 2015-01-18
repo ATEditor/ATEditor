@@ -10,6 +10,7 @@ ATEditor.plugins['source'] = function()
 		}
 	};
 	ATEditor.addbutton('source', 'Source Mode', {
+		extraclass: 'fa fa-code',
 		trigger: true,
 		active: function()
 		{
@@ -32,8 +33,9 @@ ATEditor.plugins['source'] = function()
 			ATEditor.cleanup($div);
 			ATEditor.$wysiwyg.html($div.html()).show();
 			ATEditor.$source.remove();
-			ATEditor.mode = 'wysiwyg';
+			ATEditor.$wysiwyg.focus();
 			ATEditor.check_btns();
+			ATEditor.mode = 'wysiwyg';
 			return false;
 		},
 		isactive: function() {

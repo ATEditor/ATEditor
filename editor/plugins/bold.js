@@ -1,6 +1,7 @@
 ATEditor.plugins['bold'] = function()
 {
 	ATEditor.addbutton('bold', 'Bold', {
+		extraclass: 'fa fa-bold',
 		trigger: function()
 		{
 			return ATEditor.mode == 'wysiwyg';
