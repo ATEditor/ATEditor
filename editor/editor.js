@@ -13,7 +13,7 @@ var ATEditor = {
 	$wysiwyg: null,
 	$source: null,
 	plugins: {},
-	activeplugins: 'source bold italic underline strike subsup',
+	activeplugins: 'source bold italic underline strike subsup removeformat',
 	mode: 'wysiwyg',
 
 	run: function(id)
@@ -146,6 +146,33 @@ var ATEditor = {
 			textRange.moveStart("character", savedSel.start);
 			textRange.select();
 		}
+	},
+	
+	getHtml: function()
+	{
+		if(ATEditor.mode == 'source')
+			return ATEditor.$source.val();
+		return ATEditor.$wysiwyg.html();
+	},
+	
+	getText: function()
+	{
+		if(ATEditor.mode == 'source')
+		{
+			var $elm = $('<div />');
+			$elm.html(ATEditor.$source.val());
+			return $elm.text();
+		}
+		return ATEditor.$wysiwyg.text();
+	},
+	
+	getHtmlRange: function(start, length)
+	{
+		var selection = ATEditor.getSelection();
+		ATEditor.setSelection(start, length);
+		var html = ATEditor.getSelectionHtml();
+		ATEditor.setSelection(selection.start, selection.width);
+		return html;
 	},
 	
 
