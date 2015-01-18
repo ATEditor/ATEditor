@@ -1,31 +1,36 @@
 ATEditor.plugins['underline'] = function()
 {
-	ATEditor.addbutton('underline', 'Underline', function()
-	{
-		return ATEditor.mode == 'wysiwyg';
-	}, function()
-	{
-		if(ATEditor.mode == 'source')
+	ATEditor.addbutton('underline', 'Underline', {
+		trigger: function()
 		{
-			ATEditor.source.insertTag('<u>','</u>');
-		}
-		else
+			return ATEditor.mode == 'wysiwyg';
+		},
+		active: function()
+		{
+			if(ATEditor.mode == 'source')
+			{
+				ATEditor.source.insertTag('<u>','</u>');
+			}
+			else
+			{
+				ATEditor.execCommand('underline');
+			}
+			return false;
+		},
+		deactive: function()
 		{
 			ATEditor.execCommand('underline');
+			return false;
+		},
+		isactive: function() {
+			r = false;
+			ATEditor.$wysiwyg.find('u').each(function(){
+				r = r || (true && $(this).selection());
+				if(r == true)
+					return false;
+			});
+			return r;
 		}
-		return false;
-	}, function()
-	{
-		ATEditor.execCommand('underline');
-		return false;
-	}, function() {
-		r = false;
-		ATEditor.$wysiwyg.find('u').each(function(){
-			r = r || (true && $(this).selection());
-			if(r == true)
-				return false;
-		});
-		return r;
 	});
 	
 	ATEditor.addKey('ctrl+u', function()

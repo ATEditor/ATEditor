@@ -151,9 +151,15 @@ var ATEditor = {
 
 	buttons: {},
 
-	addbutton: function(name, title, trigger, active, deactive, isactive)
+	addbutton: function(name, title, opts)
 	{
-		ATEditor.runHook('addbutton.start', {'name':name,'title':title,'trigger':trigger,'active':active,'deactive':deactive,'isactive':isactive});
+		opts = $.extend({
+			trigger: false,
+			active: function(){},
+			deactive: function(){},
+			isactive: function(){ return false;}
+		}, opts);
+		ATEditor.runHook('addbutton.start', {name:name,title:title,opts:opts});
 		var $btn = $('<div />');
 		$btn.attr('id', 'ate_btn_'+name);
 		$btn.attr('title', title);
@@ -162,13 +168,13 @@ var ATEditor = {
 		var click = function()
 		{
 			ATEditor.runHook('button.click');
-			ccc = trigger;
-			if(typeof trigger == 'function')
-				ccc = trigger();
-			if(ccc && isactive())
-				deactive();
+			ccc = opts.trigger;
+			if(typeof opts.trigger == 'function')
+				ccc = opts.trigger();
+			if(ccc && opts.isactive())
+				opts.deactive();
 			else
-				active();
+				opts.active();
 			if(ccc)
 				$(this).toggleClass('ate_active');
 			return false;
@@ -189,11 +195,11 @@ var ATEditor = {
 			'name': name,
 			'title': title,
 			'click': click,
-			'isactive': isactive,
+			'isactive': opts.isactive,
 			'btn': $btn
 		}
 
-		ATEditor.runHook('addbutton.end', {'name':name,'title':title,'trigger':trigger,'active':active,'deactive':deactive,'isactive':isactive});
+		ATEditor.runHook('addbutton.end', {name:name,title:title,opts:opts});
 		return $btn;
 	},
 

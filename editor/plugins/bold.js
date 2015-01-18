@@ -1,31 +1,38 @@
 ATEditor.plugins['bold'] = function()
 {
-	ATEditor.addbutton('bold', 'Bold', function()
-	{
-		return ATEditor.mode == 'wysiwyg';
-	}, function()
-	{
-		if(ATEditor.mode == 'source')
+	ATEditor.addbutton('bold', 'Bold', {
+		trigger: function()
 		{
-			ATEditor.source.insertTag('<b>','</b>');
-		}
-		else
+			return ATEditor.mode == 'wysiwyg';
+		},
+		active: function()
+		{
+			if(ATEditor.mode == 'source')
+			{
+				ATEditor.source.insertTag('<b>','</b>');
+			}
+			else
+			{
+				ATEditor.execCommand('bold');
+			}
+			return false;
+		},
+		deactive: function()
 		{
 			ATEditor.execCommand('bold');
-		}
-		return false;
-	}, function()
-	{
-		ATEditor.execCommand('bold');
-		return false;
-	}, function() {
-		r = false;
-		ATEditor.$wysiwyg.find('b, strong').each(function(){
-			r = r || (true && $(this).selection());
-			if(r == true)
+			return false;
+		},
+		isactive: function() {
+			if(ATEditor.mode == 'source')
 				return false;
-		});
-		return r;
+			r = false;
+			ATEditor.$wysiwyg.find('b, strong').each(function(){
+				r = r || (true && $(this).selection());
+				if(r == true)
+					return false;
+			});
+			return r;
+		}
 	});
 	
 	ATEditor.addKey('ctrl+b', function()
