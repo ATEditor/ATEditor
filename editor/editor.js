@@ -13,7 +13,7 @@ var ATEditor = {
 	$wysiwyg: null,
 	$source: null,
 	plugins: {},
-	activeplugins: 'source bold italic underline',
+	activeplugins: 'source bold italic underline strike',
 	mode: 'wysiwyg',
 
 	run: function(id)
