@@ -24,7 +24,7 @@ ATEditor.plugins['source'] = function()
 			ATEditor.$source.bind('keydown keypress keyup mousedown mouseup focus', ATEditor.check_btns);
 			ATEditor.mode = 'source';
 			ATEditor.check_btns();
-			ATEditor.buttons['soruce'].btn.removeClass('ate_active');
+			ATEditor.buttons['source'].btn.removeClass('ate_active');
 			return false;
 		},
 		deactive: function()
@@ -37,7 +37,7 @@ ATEditor.plugins['source'] = function()
 			ATEditor.$wysiwyg.focus();
 			ATEditor.mode = 'wysiwyg';
 			ATEditor.check_btns();
-			ATEditor.buttons['soruce'].btn.addClass('ate_active');
+			ATEditor.buttons['source'].btn.addClass('ate_active');
 			return false;
 		},
 		isactive: function() {
