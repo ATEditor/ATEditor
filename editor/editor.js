@@ -12,6 +12,7 @@ var ATEditor = {
 	textarea: null,
 	$wysiwyg: null,
 	$source: null,
+	nullChar: '&#8203',
 	plugins: {},
 	activeplugins: 'source bold italic underline strike subsup removeformat',
 	mode: 'wysiwyg',
@@ -185,8 +186,9 @@ var ATEditor = {
 			active: function(){},
 			deactive: function(){},
 			isactive: function(){ return false;},
+			isenabled: function(){ return true;},
 			extraclass: '',
-			tooltip: true
+			tooltip: true,
 		}, opts);
 		ATEditor.runHook('addbutton.start', {name:name,title:title,opts:opts});
 		var $btn = $('<div />');
@@ -217,7 +219,9 @@ var ATEditor = {
 			else
 				opts.active();
 			if(ccc)
+			{
 				$(this).toggleClass('ate_active');
+			}
 			return false;
 		};
 
@@ -250,6 +254,7 @@ var ATEditor = {
 			'title': title,
 			'click': click,
 			'isactive': opts.isactive,
+			'isenabled': opts.isenabled,
 			'btn': $btn
 		}
 
@@ -278,6 +283,14 @@ var ATEditor = {
 			else
 			{
 				value.btn.removeClass('ate_active');
+			}
+			if(value.isenabled())
+			{
+				value.btn.removeClass('ate_disabled');
+			}
+			else
+			{
+				value.btn.addClass('ate_disabled');
 			}
 		})
 	},

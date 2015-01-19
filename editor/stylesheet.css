@@ -80,8 +80,13 @@
 	content: ' ';
 }
 
-.ate_active {
+.ate_btn.ate_active {
 	background: #eee;
+}
+
+.ate_btn.ate_disabled {
+	color: #aaa;
+	cursor: default;
 }
 
 /* Content */

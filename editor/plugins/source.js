@@ -22,8 +22,9 @@ ATEditor.plugins['source'] = function()
 			ATEditor.$source.focus();
 			ATEditor.$source.bind('keydown', ATEditor.keymapcheck);
 			ATEditor.$source.bind('keydown keypress keyup mousedown mouseup focus', ATEditor.check_btns);
-			ATEditor.check_btns();
 			ATEditor.mode = 'source';
+			ATEditor.check_btns();
+			ATEditor.buttons['soruce'].btn.removeClass('ate_active');
 			return false;
 		},
 		deactive: function()
@@ -34,8 +35,9 @@ ATEditor.plugins['source'] = function()
 			ATEditor.$wysiwyg.html($div.html()).show();
 			ATEditor.$source.remove();
 			ATEditor.$wysiwyg.focus();
-			ATEditor.check_btns();
 			ATEditor.mode = 'wysiwyg';
+			ATEditor.check_btns();
+			ATEditor.buttons['soruce'].btn.addClass('ate_active');
 			return false;
 		},
 		isactive: function() {
