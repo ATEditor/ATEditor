@@ -10,11 +10,12 @@
 var ATEditor = {
 	id: null,
 	textarea: null,
+	$editor: null,
 	$wysiwyg: null,
 	$source: null,
 	nullChar: '&#8203',
 	plugins: {},
-	activeplugins: 'source bold italic underline strike subsup removeformat',
+	activeplugins: 'source bold italic underline strike subsup removeformat miximize',
 	mode: 'wysiwyg',
 
 	run: function(id)
@@ -24,7 +25,8 @@ var ATEditor = {
 		if(ATEditor.textarea)
 		{
 			ATEditor.textarea.after('<div id="ATEditor"><div class="ate_head"></div><div class="ate_body" contenteditable></div><div class="ate_foot"></div>');
-			ATEditor.$wysiwyg = $('#ATEditor').find('.ate_body');
+			ATEditor.$editor = $('#ATEditor');
+			ATEditor.$wysiwyg = ATEditor.$editor.find('.ate_body');
 			ATEditor.textarea.addClass('ate_hidden_important');
 
 			ATEditor.runplugins();

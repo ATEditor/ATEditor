@@ -20,6 +20,17 @@
 	box-sizing: border-box;
 }
 
+.ate_maximize {
+	width: 100%!important;
+	height: 100%!important;
+	position: fixed!important;
+	top: 0!important;
+	left: 0!important;
+	bottom: 0!important;
+	right: 0!important;
+	z-index: 99999999;
+}
+
 .ate_head {
 	background: #f9f9f9;
 	border-bottom: 1px solid #ccc;
@@ -42,6 +53,7 @@
 	font-size: 13px;
 	font-family: Tahoma;
 	text-rendering: geometricPrecision;
+	background: #fff;
 }
 
 .ate_btn {
