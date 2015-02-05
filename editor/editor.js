@@ -15,7 +15,7 @@ var ATEditor = {
 	$source: null,
 	nullChar: '&#8203',
 	plugins: {},
-	activeplugins: 'source bold italic underline strike subsup removeformat miximize',
+	activeplugins: 'source bold italic underline strike subsup removeformat miximize undo',
 	mode: 'wysiwyg',
 
 	run: function(id)
@@ -156,6 +156,13 @@ var ATEditor = {
 		if(ATEditor.mode == 'source')
 			return ATEditor.$source.val();
 		return ATEditor.$wysiwyg.html();
+	},
+
+	setHtml: function(html)
+	{
+		if(ATEditor.mode == 'source')
+			return ATEditor.$source.val(html);
+		return ATEditor.$wysiwyg.html(html);
 	},
 	
 	getText: function()
