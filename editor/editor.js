@@ -20,16 +20,16 @@ var ATEditor = {
 	configs: {
 		width: '100%',
 		height: '200px',
-		/*
-		minHeight: '150px',
-		maxHeight: '300px',
-		startMode: 'wysiwyg',
 		buttons: [
 			'source', '-',
-			'bold', 'italic', 'underline', 'strike', 'sub', 'sup', 'removeformat', '-',
+			'bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'removeformat', '-',
 			'undo', 'redo', '-',
 			'maximize'
 		],
+		/*
+		minHeight: '150px',
+		maxHeight: '300px',
+		startMode: 'wysiwyg'
 		*/
 		
 	},
@@ -43,6 +43,7 @@ var ATEditor = {
 		ATEditor.configs = $.extend(ATEditor.configs, configs);
 		ATEditor.id = id;
 		ATEditor.textarea = $('#'+id);
+		ATEditor.$buttons['-'] = $('<div class="ate_btn_sperator"></div>');
 		if(ATEditor.textarea)
 		{
 			ATEditor.textarea.after('<div id="ATEditor"><div class="ate_head"></div><div class="ate_body" contenteditable></div><div class="ate_foot"></div>');
@@ -58,6 +59,15 @@ var ATEditor = {
 			ATEditor.$editor.css({
 				width: ATEditor.configs.width,
 				height: ATEditor.configs.height,
+			});
+			
+			$.each(ATEditor.configs.buttons, function(index, btn)
+			{
+				if(btn == '-')
+				{
+					ATEditor.$buttons['-'] = ATEditor.$buttons['-'].clone(true);
+				}
+				ATEditor.$buttons[btn].appendTo('.ate_head');
 			});
 		}
 		else
@@ -213,6 +223,7 @@ var ATEditor = {
 	
 
 	buttons: {},
+	$buttons: {},
 
 	addbutton: function(name, title, opts)
 	{
@@ -264,25 +275,25 @@ var ATEditor = {
 		
 		ATEditor.addHook('events.run.'+name, click);
 
-		$('.ate_head').append($btn);
 		if(opts.tooltip)
 		{
-			$tooltip.css('bottom', (-1*($tooltip.outerHeight()))+'px');
-			$tooltip.css('left', (($btn.outerWidth()-$tooltip.outerWidth())/2)+'px');
-			$tooltip.css('right', (($btn.outerWidth()-$tooltip.outerWidth())/2)+'px');
-			$tooltip.hide();
 			$btn.hover(function(){
 				$tooltip.show();
+				$tooltip.css('bottom', (-1*($tooltip.outerHeight()))+'px');
+				$tooltip.css('left', (($(this).outerWidth()-$tooltip.outerWidth())/2)+'px');
+				$tooltip.css('right', (($(this).outerWidth()-$tooltip.outerWidth())/2)+'px');
 			}, function() {
 				$tooltip.hide();
 			});
 			$tooltip.hover(function(){$(this).hide();});
+			$tooltip.hide();
 		}
 		
 		if(typeof ATEditor['btn_'+name] == 'function')
 		{
 			ATEditor['btn_'+name]();
 		}
+		ATEditor.$buttons[name] = $btn;
 
 		ATEditor.buttons[name] = {
 			'name': name,
