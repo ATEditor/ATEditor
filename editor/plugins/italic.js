@@ -1,6 +1,6 @@
 ATEditor.plugins['italic'] = function()
 {
-	ATEditor.addbutton('italic', 'Italic', {
+	ATEditor.addbutton('italic', 'Italic | Ctrl+I', {
 		extraclass: 'fa fa-italic',
 		trigger: function()
 		{

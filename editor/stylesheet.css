@@ -2,6 +2,8 @@
  * In the name of GOD
  */
 
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,300,700);
+
 .ate_hidden_important {
 	display: none!important;
 }
@@ -12,8 +14,7 @@
 	border: 1px solid #ccc;
 	box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
 	height: 200px;
-	font-family: Tahoma, Arial;
-	text-rendering: geometricPrecision;
+	font-family: 'Open Sans', Tahoma, Arial;
 }
 
 #ATEditor, #ATEditor div, #ATEditor span {
@@ -35,24 +36,29 @@
 	background: #f9f9f9;
 	border-bottom: 1px solid #ccc;
 	height: 35px;
+	z-index: 10002;
+	position: absolute;
+	width: 100%;
 }
 
 .ate_body, .ate_source {
 	position: absolute;
-	top: 35px;
+	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	outline: 0;
+	z-index: 10001;
 	border: none;
+	border-top: 35px solid;
 	overflow: auto;
 	padding: 10px;
 	display: block;
 	width: 100%;
+	height: 100%;
 	box-sizing: border-box;
 	font-size: 13px;
-	font-family: Tahoma;
-	text-rendering: geometricPrecision;
+	font-family: 'Open Sans', Tahoma, Arial;
 	background: #fff;
 }
 
@@ -73,11 +79,13 @@
 	position: absolute;
 	background: #0d0d0d;
 	border-radius: 4px;
-	padding: 3px 5px;
+	padding: 3px 8px;
 	color: #fff;
-	font-size: 13px;
+	font-size: 11px;
 	z-index: 1000;
 	white-space: nowrap;
+	font-family: 'Open Sans', Tahoma, Arial;
+	font-weight: 300;
 }
 
 .ate_btn .ate_tooltip:before {

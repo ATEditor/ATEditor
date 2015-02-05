@@ -1,6 +1,6 @@
 ATEditor.plugins['underline'] = function()
 {
-	ATEditor.addbutton('underline', 'Underline', {
+	ATEditor.addbutton('underline', 'Underline | Ctrl+U', {
 		extraclass: 'fa fa-underline',
 		trigger: function()
 		{

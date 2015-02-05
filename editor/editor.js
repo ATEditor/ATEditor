@@ -32,7 +32,7 @@ var ATEditor = {
 			ATEditor.runplugins();
 			
 			ATEditor.$wysiwyg.bind('keydown keypress keyup mousedown mouseup focus', ATEditor.check_btns);
-			ATEditor.$wysiwyg.bind('keydown keyup', ATEditor.keymapcheck);
+			ATEditor.$wysiwyg.bind('keydown', ATEditor.keymapcheck);
 		}
 		else
 		{
@@ -222,14 +222,14 @@ var ATEditor = {
 				opts.active();
 			if(ccc)
 			{
-				$(this).toggleClass('ate_active');
+				$btn.toggleClass('ate_active');
 			}
 			return false;
 		};
 
 		$btn.mousedown(click);
 		
-		ATEditor.addHook('events.run.'+name, function(){$btn.mousedown()});
+		ATEditor.addHook('events.run.'+name, click);
 
 		$('.ate_head').append($btn);
 		if(opts.tooltip)
@@ -305,7 +305,7 @@ var ATEditor = {
 		{
 			html = parser(html);
 		}
-		document.execCommand('insertHTML', true, start+html+end);
+		document.execCommand('insertHTML', false, start+html+end);
 	},
 
 	execCommand: function(commad, value)
@@ -313,7 +313,7 @@ var ATEditor = {
 		if(!value)
 			value = null;
 		slc = ATEditor.getSelection();
-		document.execCommand(commad, true, value);
+		document.execCommand(commad, false, value);
 	},
 	
 	hooks:{},
@@ -369,7 +369,6 @@ var ATEditor = {
 		var charCode = (event.which) ? event.which : event.keyCode;
 		var key = String.fromCharCode(charCode);
 
-
 		// Copied from http://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
 		if (charCode == 8) key = "backspace"; //  backspace
 		if (charCode == 9) key = "tab"; //  tab
@@ -390,23 +389,23 @@ var ATEditor = {
 		if (charCode == 40) key = "down arrow"; // down arrow
 		if (charCode == 45) key = "insert"; // insert
 		if (charCode == 46) key = "delete"; // delete
-		if (charCode == 91) key = "left window"; // left window
-		if (charCode == 92) key = "right window"; // right window
-		if (charCode == 93) key = "select key"; // select key
-		if (charCode == 96) key = "numpad 0"; // numpad 0
-		if (charCode == 97) key = "numpad 1"; // numpad 1
-		if (charCode == 98) key = "numpad 2"; // numpad 2
-		if (charCode == 99) key = "numpad 3"; // numpad 3
-		if (charCode == 100) key = "numpad 4"; // numpad 4
-		if (charCode == 101) key = "numpad 5"; // numpad 5
-		if (charCode == 102) key = "numpad 6"; // numpad 6
-		if (charCode == 103) key = "numpad 7"; // numpad 7
-		if (charCode == 104) key = "numpad 8"; // numpad 8
-		if (charCode == 105) key = "numpad 9"; // numpad 9
+		if (charCode == 91) key = "left-window"; // left window
+		if (charCode == 92) key = "right-window"; // right window
+		if (charCode == 93) key = "select-key"; // select key
+		if (charCode == 96) key = "numpad-0"; // numpad 0
+		if (charCode == 97) key = "numpad-1"; // numpad 1
+		if (charCode == 98) key = "numpad-2"; // numpad 2
+		if (charCode == 99) key = "numpad-3"; // numpad 3
+		if (charCode == 100) key = "numpad-4"; // numpad 4
+		if (charCode == 101) key = "numpad-5"; // numpad 5
+		if (charCode == 102) key = "numpad-6"; // numpad 6
+		if (charCode == 103) key = "numpad-7"; // numpad 7
+		if (charCode == 104) key = "numpad-8"; // numpad 8
+		if (charCode == 105) key = "numpad-9"; // numpad 9
 		if (charCode == 106) key = "multiply"; // multiply
 		if (charCode == 107) key = "add"; // add
 		if (charCode == 109) key = "subtract"; // subtract
-		if (charCode == 110) key = "decimal point"; // decimal point
+		if (charCode == 110) key = "decimal-point"; // decimal point
 		if (charCode == 111) key = "divide"; // divide
 		if (charCode == 112) key = "F1"; // F1
 		if (charCode == 113) key = "F2"; // F2
@@ -420,8 +419,8 @@ var ATEditor = {
 		if (charCode == 121) key = "F10"; // F10
 		if (charCode == 122) key = "F11"; // F11
 		if (charCode == 123) key = "F12"; // F12
-		if (charCode == 144) key = "num lock"; // num lock
-		if (charCode == 145) key = "scroll lock"; // scroll lock
+		if (charCode == 144) key = "num-lock"; // num lock
+		if (charCode == 145) key = "scroll-lock"; // scroll lock
 		if (charCode == 186) key = ";"; // semi-colon
 		if (charCode == 187) key = "="; // equal-sign
 		if (charCode == 188) key = ","; // comma
@@ -435,19 +434,18 @@ var ATEditor = {
 		if (charCode == 222) key = "'"; // single quote
 
 		key = key.toLowerCase();
-		var n = ATEditor.keys.length;
-		returnn = true;
-		for(var i = 0; i < n;i++)
+		var returnn = true;
+		$.each(ATEditor.keys, function(i, me)
 		{
-			if(typeof ATEditor.keys[i] == 'object')
+			val = me.key.split('+');
+			if(((val[0] == 'ctrl' && isCtrl) || (val[0] == 'alt' && isAlt) || (val[0] == 'shift' && isShift)) && val[1] == key)
 			{
-				val = ATEditor.keys[i].key.split('+');
-				if(((val[0] == 'ctrl' && isCtrl) || (val[0] == 'alt' && isAlt) || (val[0] == 'shift' && isShift)) && val[1] == key)
+				if(!me.func())
 				{
-					returnn &= ATEditor.keys[i].func();
+					returnn = false;
 				}
 			}
-		}
+		});
 		return returnn;
 	 
 	},

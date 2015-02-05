@@ -17,10 +17,4 @@ ATEditor.plugins['miximize'] = function()
 			return ATEditor.$editor.hasClass('ate_maximize');
 		}
 	});
-	
-	ATEditor.addKey('ctrl+b', function()
-	{
-		ATEditor.runHook('events.run.bold');
-		return false;
-	});
 };

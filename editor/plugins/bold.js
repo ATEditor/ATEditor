@@ -1,6 +1,6 @@
 ATEditor.plugins['bold'] = function()
 {
-	ATEditor.addbutton('bold', 'Bold', {
+	ATEditor.addbutton('bold', 'Bold | Ctrl+B', {
 		extraclass: 'fa fa-bold',
 		trigger: function()
 		{
@@ -24,8 +24,6 @@ ATEditor.plugins['bold'] = function()
 			return false;
 		},
 		isactive: function() {
-			if(ATEditor.mode == 'source')
-				return false;
 			r = false;
 			ATEditor.$wysiwyg.find('b, strong').each(function(){
 				r = r || (true && $(this).selection());
@@ -41,15 +39,4 @@ ATEditor.plugins['bold'] = function()
 		ATEditor.runHook('events.run.bold');
 		return false;
 	});
-	
-	/*
-	ATEditor.addHook('cleanup.do', function(args)
-	{
-		elm = args.elm;
-		$elm = $(elm);
-		if(elm.tagName.toLowerCase() == 'b')
-		{
-			elm.tagName = 'STRONG';
-		}
-	});*/
 };
