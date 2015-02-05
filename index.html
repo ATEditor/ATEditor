@@ -35,7 +35,9 @@
 <script src="editor/plugins/maximize.js"></script>
 <script src="editor/plugins/undo.js"></script>
 <script>
-	ATEditor.run('msg');
+	ATEditor.run('msg', {
+		//Configs
+	});
 	setInterval(function(){$('#t').val($('.ate_body').html());}, 200);
 </script>
 </body>

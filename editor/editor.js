@@ -15,11 +15,32 @@ var ATEditor = {
 	$source: null,
 	nullChar: '&#8203',
 	plugins: {},
-	activeplugins: 'source bold italic underline strike subsup removeformat miximize undo',
+	activeplugins: 'source bold italic underline strike subsup removeformat undo miximize',
 	mode: 'wysiwyg',
+	configs: {
+		width: '100%',
+		height: '200px',
+		/*
+		minHeight: '150px',
+		maxHeight: '300px',
+		startMode: 'wysiwyg',
+		buttons: [
+			'source', '-',
+			'bold', 'italic', 'underline', 'strike', 'sub', 'sup', 'removeformat', '-',
+			'undo', 'redo', '-',
+			'maximize'
+		],
+		*/
+		
+	},
 
-	run: function(id)
+	run: function(id, configs)
 	{
+		if(!configs)
+		{
+			configs = {}
+		}
+		ATEditor.configs = $.extend(ATEditor.configs, configs);
 		ATEditor.id = id;
 		ATEditor.textarea = $('#'+id);
 		if(ATEditor.textarea)
@@ -33,6 +54,11 @@ var ATEditor = {
 			
 			ATEditor.$wysiwyg.bind('keydown keypress keyup mousedown mouseup focus', ATEditor.check_btns);
 			ATEditor.$wysiwyg.bind('keydown', ATEditor.keymapcheck);
+
+			ATEditor.$editor.css({
+				width: ATEditor.configs.width,
+				height: ATEditor.configs.height,
+			});
 		}
 		else
 		{
