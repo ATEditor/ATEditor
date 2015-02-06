@@ -1,4 +1,4 @@
-ATEditor.plugins['miximize'] = function()
+ATEditor.plugins['maximize'] = function()
 {
 	ATEditor.addbutton('maximize', 'Maximize | Ctrl + F11', {
 		extraclass: 'fa fa-arrows-alt',

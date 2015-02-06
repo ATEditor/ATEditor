@@ -15,7 +15,7 @@ var ATEditor = {
 	$source: null,
 	nullChar: '&#8203',
 	plugins: {},
-	activeplugins: 'source bold italic underline strike subsup removeformat undo miximize',
+	activeplugins: 'source bold italic underline strike subsup removeformat undo maximize',
 	mode: 'wysiwyg',
 	configs: {
 		width: '100%',
@@ -25,6 +25,10 @@ var ATEditor = {
 			'bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'removeformat', '-',
 			'undo', 'redo', '-',
 			'maximize'
+		],
+		extraPlugins: [
+		],
+		removePlugins: [
 		],
 		/*
 		minHeight: '150px',
@@ -67,7 +71,10 @@ var ATEditor = {
 				{
 					ATEditor.$buttons['-'] = ATEditor.$buttons['-'].clone(true);
 				}
-				ATEditor.$buttons[btn].appendTo('.ate_head');
+				if(ATEditor.$buttons[btn])
+				{
+					ATEditor.$buttons[btn].appendTo('.ate_head');
+				}
 			});
 		}
 		else
@@ -310,9 +317,9 @@ var ATEditor = {
 
 	runplugins: function()
 	{
-		plugins = ATEditor.activeplugins.split(' ');
+		plugins = $.merge(ATEditor.activeplugins.split(' '), ATEditor.configs.extraPlugins);
 		$.each(plugins, function(index, value){
-			if(typeof ATEditor.plugins[value] == 'function')
+			if(typeof ATEditor.plugins[value] == 'function' && ATEditor.configs.removePlugins.indexOf(value) == -1)
 			{
 				ATEditor.plugins[value]();
 			}
