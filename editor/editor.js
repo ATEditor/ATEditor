@@ -20,6 +20,11 @@ var ATEditor = {
 	configs: {
 		width: '100%',
 		height: '200px',
+		tooltip: true,
+		defaultMode: 'wysiwyg',
+		resizable: true,
+		minHeight: '150px',
+		maxHeight: '300px',
 		buttons: [
 			'source', '-',
 			'bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'removeformat', '-',
@@ -29,13 +34,7 @@ var ATEditor = {
 		extraPlugins: [
 		],
 		removePlugins: [
-		],
-		/*
-		minHeight: '150px',
-		maxHeight: '300px',
-		startMode: 'wysiwyg'
-		*/
-		
+		],		
 	},
 
 	run: function(id, configs)
@@ -76,6 +75,13 @@ var ATEditor = {
 					ATEditor.$buttons[btn].appendTo('.ate_head');
 				}
 			});
+			
+			if(ATEditor.configs.defaultMode == 'source' && typeof ATEditor.plugins['source'] != 'undefined')
+			{
+				ATEditor.runHook('events.run.source');
+			}
+			
+			ATEditor.makeResizable();
 		}
 		else
 		{
@@ -241,7 +247,7 @@ var ATEditor = {
 			isactive: function(){ return false;},
 			isenabled: function(){ return true;},
 			extraclass: '',
-			tooltip: true,
+			tooltip: ATEditor.configs.tooltip,
 		}, opts);
 		ATEditor.runHook('addbutton.start', {name:name,title:title,opts:opts});
 		var $btn = $('<div />');
@@ -505,5 +511,41 @@ var ATEditor = {
 	{
 		key = key.toLowerCase();
 		ATEditor.keys.push({'key':key,'func':func});
+	},
+
+
+	makeResizable: function()
+	{
+		if(ATEditor.configs.resizable)
+		{
+			var changeHeight = function(event)
+			{
+				var height = event.pageY - $('.ate_resize').attr('data-startmoving');
+
+				if(height < ATEditor.configs.minHeight.replace('px', ''))
+				{
+					height = ATEditor.configs.minHeight.replace('px', '');
+				}
+				if(height > ATEditor.configs.maxHeight.replace('px', ''))
+				{
+					height = ATEditor.configs.maxHeight.replace('px', '');
+				}
+
+				ATEditor.$editor.css({
+					height: height+'px'
+				});
+			}
+
+			$('.ate_foot').addClass('ate_resize').mousedown(function(event)
+			{
+				$(this).attr('data-startmoving', event.pageY-ATEditor.$editor.height());
+				$(document).bind('mousemove', changeHeight);
+			});
+			$(document).mouseup(function()
+			{
+				$(document).unbind('mousemove', changeHeight);
+			});
+			
+		}
 	}
 };

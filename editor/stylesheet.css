@@ -159,6 +159,7 @@
 	z-index: 10001;
 	border: none;
 	border-top: 35px solid;
+	border-bottom: 3px solid;
 	overflow: auto;
 	padding: 10px;
 	display: block;
@@ -169,6 +170,21 @@
 	font-family: 'Open Sans', Tahoma, Arial;
 	background: #fff;
 	resize: none;
+}
+
+.ate_foot {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 3px;
+	z-index: 10002;
+	background: #e8e8e8;
+}
+
+.ate_resize {
+	cursor: n-resize;
 }
 
 .ate_btn {
