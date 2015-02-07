@@ -20,7 +20,7 @@ ATEditor.plugins['removeformat'] = function()
 			html = ATEditor.getSelectionHtml();
 			$elm = $('<div />');
 			$elm.html(html);
-			$elm.find('span, strong, bold, em, u, i, del, small, big, s, strike').each(function()
+			$elm.find('span, strong, bold, em, u, i, del, small, big, s, strike, sub, sup').each(function()
 			{
 				$(this)[0].outerHTML = $(this).html();
 			});
